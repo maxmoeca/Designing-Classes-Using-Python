@@ -1,0 +1,111 @@
+class Animal:
+    def __init__(self, num_legs, num_hands):
+        self.__num_legs = num_legs
+        self.__num_hands = num_hands
+
+    def get_features(self):
+        return {
+            "Legs": self.__num_legs,
+            "Hands": self.__num_hands
+        }
+
+class Feline(Animal):
+    def __init__(self):
+        super().__init__(num_legs=4, num_hands=0)
+        self.family = "Cat Family"
+
+class Canine(Animal):
+    def __init__(self):
+        super().__init__(num_legs=4, num_hands=0)
+        self.family = "Dog Family"
+
+class Tiger(Feline):
+    def __init__(self):
+        super().__init__()
+        self.can_roar = True
+        self.is_predator = True
+
+    def get_features(self):
+        features = super().get_features()
+        features.update({
+            "Can Roar": self.can_roar,
+            "Is Predator": self.is_predator
+        })
+        return features
+
+class WildCat(Feline):
+    def __init__(self):
+        super().__init__()
+        self.can_climb_trees = True
+
+    def get_features(self):
+        features = super().get_features()
+        features.update({
+            "Can Climb Trees": self.can_climb_trees
+        })
+        return features
+
+class Wolf(Canine):
+    def __init__(self, is_leader=False):
+        super().__init__()
+        self.hunts_in_pack = True
+        self.is_leader = is_leader
+
+    def get_features(self):
+        features = super().get_features()
+        features.update({
+            "Hunts in Pack": self.hunts_in_pack,
+            "Is Pack Leader": self.is_leader
+        })
+        return features
+
+class Bird:
+    def __init__(self, num_legs, num_wings):
+        self.__num_legs = num_legs
+        self.__num_wings = num_wings
+
+    def get_features(self):
+        return {
+            "Legs": self.__num_legs,
+            "Wings": self.__num_wings
+        }
+
+class FlightBird(Bird):
+    def __init__(self):
+        super().__init__(num_legs=2, num_wings=2)
+        self.can_fly = True
+
+class Eagle(FlightBird):
+    def __init__(self):
+        super().__init__()
+        self.flies_high = True
+
+    def get_features(self):
+        features = super().get_features()
+        features.update({
+            "Can Fly": self.can_fly,
+            "Flies High": self.flies_high
+        })
+        return features
+
+class Zoo:
+    def __init__(self):
+        self.animals_and_birds = []
+
+    def add_animal_or_bird(self, obj):
+        if len(self.animals_and_birds) < 3:
+            self.animals_and_birds.append(obj)
+        else:
+            print("Zoo is full!")
+
+    def view_all(self):
+        for obj in self.animals_and_birds:
+            print(obj.get_features())
+
+# Example usage
+zoo = Zoo()
+zoo.add_animal_or_bird(Tiger())
+zoo.add_animal_or_bird(WildCat())
+zoo.add_animal_or_bird(Eagle())
+
+zoo.view_all()
